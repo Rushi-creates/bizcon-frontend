@@ -1,0 +1,12 @@
+// paste this in pubspec.yaml
+// TODO : move this folder, outside lib folder, to root folder
+
+  assets:
+    - images/blackLogo.png
+    - images/noResults.jpg
+    - images/waiting.jpg
+    - images/isAdmin.jpg
+    - images/isUser.jpg
+    - images/robot_queue.jpg
+    - images/authAdmin.jpg
+    - images/authUser.jpg

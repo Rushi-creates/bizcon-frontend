@@ -1,0 +1,7 @@
+//1. move main.dart , outside of service folder
+
+
+
+//2. paste this in bash terminal 
+
+flutter pub add shared_preferences flutter_bloc equatable http  && flutter pub get
