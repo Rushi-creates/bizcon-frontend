@@ -3,11 +3,12 @@ part of 'MyPosts_fetch_screen.dart';
 class MyPosts_fetch_belowList_widget extends StatelessWidget {
   final scrollController;
   final scrollListener;
-  const MyPosts_fetch_belowList_widget({
-    super.key,
-    required this.scrollController,
-    required this.scrollListener,
-  });
+  final profilePuid;
+  const MyPosts_fetch_belowList_widget(
+      {super.key,
+      required this.scrollController,
+      required this.scrollListener,
+      required this.profilePuid});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,7 @@ class MyPosts_fetch_belowList_widget extends StatelessWidget {
       style: TextButton.styleFrom(backgroundColor: Colors.pink[600]),
       onPressed: () {
         BlocProvider.of<MyPostsFetchBloc>(context)
-            .add(MyPosts_Fetch_onInit_Event());
+            .add(MyPosts_Fetch_onInit_Event(profilePuid));
       },
     );
   }
@@ -104,7 +105,7 @@ class MyPosts_fetch_belowList_widget extends StatelessWidget {
       style: TextButton.styleFrom(backgroundColor: Colors.pink[600]),
       onPressed: () {
         BlocProvider.of<MyPostsFetchBloc>(context)
-            .add(MyPosts_Fetch_onInit_Event());
+            .add(MyPosts_Fetch_onInit_Event(profilePuid));
       },
     );
   }

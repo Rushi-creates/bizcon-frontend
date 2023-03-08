@@ -4,6 +4,8 @@ import 'package:bizcon1/Repo/User_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../HOME/AllPosts_fetch_logic/AllPosts_fetch_bloc.dart';
+import '../PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_logic/MyPosts_fetch_bloc.dart';
 import '../Splash_stub/SplashScreen.dart';
 import 'UserLod_logic/user_lod_bloc.dart';
 
@@ -161,7 +163,7 @@ class _SettingScreenState extends State<SettingScreen> {
         if (state is UserLogout_Success_State) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return SplashScreen();
+            return SplashScreen(isStartUp: true);
           }));
           MyComponents.successSnackBar(
               context, "Signed out of app successfully");
@@ -199,7 +201,7 @@ class _SettingScreenState extends State<SettingScreen> {
           Navigator.pop(context);
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return SplashScreen();
+            return SplashScreen(isStartUp: true);
           }));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -272,6 +274,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         onPressed: () {
                           BlocProvider.of<UserLodBloc>(context)
                               .add(UserDeleteUserAccount_ButtonPressedEvent());
+                          // resetBlocs();
                         },
                       )
                     ],

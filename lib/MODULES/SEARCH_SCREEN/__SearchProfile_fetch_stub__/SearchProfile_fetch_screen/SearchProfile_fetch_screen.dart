@@ -1,8 +1,11 @@
+import 'package:bizcon1/MODULES/PROFILE/ProfileScreen.dart';
 import 'package:bizcon1/MODULES/SEARCH_SCREEN/__SearchProfile_fetch_stub__/SearchProfile_fetch_screen/Profile_SearchBar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Repo/Profile_repo.dart';
 import '../../../COMMON/myComponents.dart';
+import '../../../PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_logic/MyPosts_fetch_bloc.dart';
 import '../SearchProfile_fetch_logic/SearchProfile_fetch_bloc.dart';
 
 part 'SearchProfile_fetch_listTile_widget.dart';
@@ -150,6 +153,12 @@ class _SearchProfile_Fetch_ScreenState
             color: Colors.black,
           ),
           onPressed: () {
+            BlocProvider.of<MyPostsFetchBloc>(context)
+                .add(MyPosts_Fetch_onRefresh_Event());
+            BlocProvider.of<MyPostsFetchBloc>(context).add(
+                MyPosts_Fetch_onInit_Event(
+                    Profile_sp_repo.get_profile()!.p_uid));
+
             Navigator.pop(context);
           }),
       // actions: [

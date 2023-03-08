@@ -33,8 +33,8 @@ class MyPostsFetchBloc extends Bloc<MyPostsFetchEvent, MyPostsFetchState> {
 
         //# calling api
         //TODO : select one ( fetch all or fetch prop)
-        final List moreFetchedList =
-            await post_api_repo.fetchPosts_byProp_pUid(newCounter);
+        final List moreFetchedList = await post_api_repo.fetchPosts_byProp_pUid(
+            newCounter, event.profilePuid);
         // final List moreFetchedList =
         //     await queues_Api_Repo.fetchAll(newCounter);
 

@@ -17,6 +17,8 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+  //* Declaration
+  final formKey1 = GlobalKey<FormState>();
 /* -------------------------------------------------------------------------- */
 /*                               //@ Controllers                              */
 /* -------------------------------------------------------------------------- */
@@ -48,26 +50,29 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       child: Padding(
         padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
         child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  myHeaderTitle(),
-                  headerDescription(),
-                ],
-              ),
-              SizedBox(height: 25),
-              aboutIdeaCard(),
-              SizedBox(height: 10),
-              aboutTeamCard(),
-              SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: createPost_STATES(),
-              )
-            ],
+          child: Form(
+            key: formKey1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    myHeaderTitle(),
+                    headerDescription(),
+                  ],
+                ),
+                SizedBox(height: 25),
+                aboutIdeaCard(),
+                SizedBox(height: 10),
+                aboutTeamCard(),
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: createPost_STATES(),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -113,24 +118,27 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           // backgroundColor: Color.fromARGB(255, 15, 0, 68),
         ),
         onPressed: () {
-          Post post = Post(
-              title: title_controller.text,
-              description: description_controller.text,
-              salary_method: salaryMethod_controller.text,
-              goals: goals_controller.text,
-              qualifications_req: qualifications_req_controller.text,
-              skills_req: skills_req_controller.text,
-              max_users: int.tryParse(maxUsers_controller.text)!,
-              isOpen: true,
-              isCompanyRegistered: true,
-              recordDate: DateTime.now().toString(),
-              post_fk: Profile_sp_repo.get_profile()!.p_uid);
+          if (formKey1.currentState!.validate()) {
+            Post post = Post(
+                title: title_controller.text,
+                description: description_controller.text,
+                salary_method: salaryMethod_controller.text,
+                goals: goals_controller.text,
+                qualifications_req: qualifications_req_controller.text,
+                skills_req: skills_req_controller.text,
+                max_users: int.tryParse(maxUsers_controller.text)!,
+                isOpen: true,
+                isCompanyRegistered: true,
+                recordDate: DateTime.now().toString(),
+                post_fk: Profile_sp_repo.get_profile()!.p_uid);
 
-          BlocProvider.of<PostCudBloc>(context)
-              .add(Post_create_onButtonPressed_Event(post));
+            BlocProvider.of<PostCudBloc>(context)
+                .add(Post_create_onButtonPressed_Event(post));
 
-          BlocProvider.of<MyPostsFetchBloc>(context)
-              .add(MyPosts_Fetch_onInit_Event());
+            BlocProvider.of<MyPostsFetchBloc>(context).add(
+                MyPosts_Fetch_onInit_Event(
+                    Profile_sp_repo.get_profile()!.p_uid));
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -376,6 +384,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             return null;
           },
           decoration: InputDecoration(
+            errorStyle: TextStyle(color: Colors.black),
             border: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,

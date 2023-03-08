@@ -4,6 +4,7 @@ import 'package:bizcon1/MODULES/PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_scr
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Repo/Profile_repo.dart';
 import '../HOME/AllPosts_fetch_logic/__AllPosts_fetch_screen__/AllPosts_fetch_screen.dart';
 import '../PROFILE/ProfileScreen.dart';
 import 'MyBottomBar_logic/my_bottom_bar_bloc.dart';
@@ -274,7 +275,9 @@ class _My_BottomBarState extends State<My_BottomBar> {
       } else if (state is MyBottomBar_openTwo_State) {
         return CreatePostScreen(); //second tab screen
       } else if (state is MyBottomBar_openThree_State) {
-        return ProfileScreen(); //second tab screen
+        return ProfileScreen(
+            profilePuid: Profile_sp_repo.get_profile()!.p_uid,
+            profileObj: Profile_sp_repo.get_profile()!); //second tab screen
         // return ProfileScreen(); //second tab screen
       }
 

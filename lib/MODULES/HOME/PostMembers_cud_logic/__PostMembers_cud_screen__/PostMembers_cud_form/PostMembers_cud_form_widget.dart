@@ -27,6 +27,7 @@ class PostMembers_cud_form_widget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Card(
+        elevation: 0,
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(15.0),

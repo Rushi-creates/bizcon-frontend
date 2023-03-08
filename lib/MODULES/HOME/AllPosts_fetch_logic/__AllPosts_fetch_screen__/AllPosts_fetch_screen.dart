@@ -32,9 +32,9 @@ class _AllPosts_Fetch_ScreenState extends State<AllPosts_Fetch_Screen> {
     //# a scroll listner which listens always
     scrollController.addListener(scrollListener);
 
-    //# to call first set of pages
-    BlocProvider.of<AllPostsFetchBloc>(context)
-        .add(AllPosts_Fetch_onInit_Event());
+    // //# to call first set of pages
+    // BlocProvider.of<AllPostsFetchBloc>(context)
+    //     .add(AllPosts_Fetch_onInit_Event());
   }
 
   @override

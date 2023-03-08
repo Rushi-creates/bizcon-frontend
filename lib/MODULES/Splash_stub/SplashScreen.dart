@@ -1,14 +1,18 @@
 import 'package:bizcon1/MODULES/AUTH/Register_screen/UserRegButtonScreen.dart';
 import 'package:bizcon1/MODULES/AUTH/Switch_tabs/UserSwitchScreen.dart';
 import 'package:bizcon1/MODULES/CREATE_PROFILE/CreateProfileScreen.dart';
+import 'package:bizcon1/Repo/Profile_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../HOME/AllPosts_fetch_logic/AllPosts_fetch_bloc.dart';
 import '../My_BottomBar_stub/My_BottomBar.dart';
+import '../PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_logic/MyPosts_fetch_bloc.dart';
 import 'Splash_roles_logic/splash_roles_bloc.dart';
 
 //to change class name = right click on className> Rename symbol
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final isStartUp;
+  SplashScreen({this.isStartUp = false});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -20,10 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     blocFunc();
+    // if (widget.isStartUp) {
+    //   resetBlocs();
+    //   initializeBlocs();
+    // }
   }
 
   blocFunc() {
-    Future.delayed(Duration(milliseconds: 2000), () {
+    Future.delayed(Duration(milliseconds: widget.isStartUp ? 2000 : 500), () {
       BlocProvider.of<SplashRolesBloc>(context)
           .add(CheckRole_OnAppStartUpEvent());
     });
@@ -32,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 14, 0, 143),
+      backgroundColor: Color.fromARGB(255, 64, 0, 182),
       body:
 
           // BlocListener<InternetBloc, InternetState>(
@@ -68,6 +76,11 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is RoleErrorState) {
           print('error while loading sp');
         } else if (state is User_Role_State) {
+          //!
+          resetBlocs();
+          initializeBlocs();
+
+          //!
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return My_BottomBar();
@@ -93,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       child: Center(
         child: Text(
-          "Current Trends",
+          "Bizcon",
           // maxLines: 2,
           // overflow: TextOverflow.ellipsis,
           // textAlign: TextAlign.center,
@@ -153,5 +166,26 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+/* -------------------------------------------------------------------------- */
+/*                          //@ Initialize all blocs                          */
+/* -------------------------------------------------------------------------- */
+
+  resetBlocs() {
+    BlocProvider.of<MyPostsFetchBloc>(context)
+        .add(MyPosts_Fetch_onRefresh_Event());
+    BlocProvider.of<AllPostsFetchBloc>(context)
+        .add(AllPosts_Fetch_onRefresh_Event());
+  }
+
+  initializeBlocs() {
+    //# to call first set of pages
+    BlocProvider.of<MyPostsFetchBloc>(context)
+        .add(MyPosts_Fetch_onInit_Event(Profile_sp_repo.get_profile()!.p_uid));
+
+    //# to call first set of pages
+    BlocProvider.of<AllPostsFetchBloc>(context)
+        .add(AllPosts_Fetch_onInit_Event());
   }
 }

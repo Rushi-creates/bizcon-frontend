@@ -56,7 +56,7 @@ class PostMembers_cud_save_button extends StatelessWidget {
       builder: (context, state) {
         //default state
         if (state is PostMembersCudInitial) {
-          return save_Button_ui(context);
+          return joinTeamButton(context);
         } else if (state is PostMembers_create_Loading_State) {
           return customLoading();
         } else if (state is PostMembers_create_Error_State) {
@@ -70,7 +70,7 @@ class PostMembers_cud_save_button extends StatelessWidget {
         }
 
         // if any other state (which is not mentioned)
-        return save_Button_ui(context);
+        return joinTeamButton(context);
       },
     );
   }
@@ -79,14 +79,48 @@ class PostMembers_cud_save_button extends StatelessWidget {
 /*                                 //@ Widgets                                */
 /* -------------------------------------------------------------------------- */
 
-  save_Button_ui(context) {
-    return TextButton(
-      child: Text(
-        "Save",
-        style: TextStyle(color: Colors.white),
+  // joinTeamButton(context) {
+  //   return TextButton(
+  //     child: Text(
+  //       "Save",
+  //       style: TextStyle(color: Colors.white),
+  //     ),
+  //     style: TextButton.styleFrom(backgroundColor: Colors.deepPurple),
+  //     onPressed: () async => save_FUNC(context),
+  //   );
+  // }
+
+  joinTeamButton(context) {
+    return SizedBox(
+      width: MyComponents.screenSize(context).width,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6.0),
+            gradient: LinearGradient(colors: [
+              // Color.fromARGB(255, 45, 0, 53),
+              // Color.fromARGB(255, 102, 0, 161),
+              Color.fromARGB(255, 74, 0, 158),
+              Color.fromARGB(255, 16, 0, 87),
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+        child: TextButton(
+          onPressed: () async => save_FUNC(context),
+          style: TextButton.styleFrom(
+            // backgroundColor: Color.fromARGB(255, 233, 101, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+          ),
+          child: Text(
+            'Join Team',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
-      style: TextButton.styleFrom(backgroundColor: Colors.deepPurple),
-      onPressed: () async => save_FUNC(context),
     );
   }
 
@@ -115,7 +149,7 @@ class PostMembers_cud_save_button extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Error : ${state.error}'),
-          save_Button_ui(context),
+          joinTeamButton(context),
         ],
       ),
     );

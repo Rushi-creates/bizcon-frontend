@@ -1,9 +1,7 @@
 import 'package:bizcon1/MODULES/COMMON/myComponents.dart';
 import 'package:bizcon1/MODULES/CREATE_PROFILE/CreateProfileScreen.dart';
-import 'package:bizcon1/Repo/Profile_repo.dart';
 import 'package:bizcon1/service_layer_stub/models/Profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../SETTINGS_SCREEN/Settings_screen.dart';
 import '__AppliedToJoinPosts_fetch_stub__/AppliedToJoinPosts_fetch_screen/AppliedToJoinPosts_fetch_screen.dart';
@@ -12,8 +10,13 @@ import '__MyPosts_fetch_stub__/MyPosts_fetch_screen/MyPosts_fetch_screen.dart';
 
 //to change class name = right click on className> Rename symbol
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
+  final Profile profileObj;
+  final bool isFromSearchScreen;
+  final profilePuid;
+  const ProfileScreen(
+      {required this.profileObj,
+      required this.profilePuid,
+      this.isFromSearchScreen = false});
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -51,7 +54,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             // Divider(),
 
-            MyPosts_Fetch_Screen(),
+            MyPosts_Fetch_Screen(
+              isFromSearchScreen: widget.isFromSearchScreen,
+              profilePuid: widget.profilePuid,
+            ),
           ],
         ),
       ),
@@ -62,8 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return MyJoinedPosts_Fetch_Screen(
-              member_fk: Profile_sp_repo.get_profile()!.p_uid);
+          return MyJoinedPosts_Fetch_Screen(member_fk: widget.profileObj.p_uid);
         }));
       },
       child: Padding(
@@ -100,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return AppliedToJoinPosts_Fetch_Screen(
-              member_fk: Profile_sp_repo.get_profile()!.p_uid);
+              member_fk: widget.profileObj.p_uid);
         }));
       },
       child: Padding(
@@ -196,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 /* -------------------------------------------------------------------------- */
 
   myProfileCard() {
-    Profile myProfile = Profile_sp_repo.get_profile()!;
+    Profile myProfile = widget.profileObj;
     return Column(
       children: [
         //@
@@ -204,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            myBackIcon(),
+            widget.isFromSearchScreen ? myBackIcon() : dummyBackButton(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Column(
@@ -212,9 +217,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: 30),
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: NetworkImage(
-                        'https://w0.peakpx.com/wallpaper/121/369/HD-wallpaper-beautiful-girl-flower-aesthetic-ultra-girls-flower-girl-style-beautiful-portrait-woman-design-human-background-charming-young-face-female-beauty-model-gerbera-fashion-look-pretty.jpg'),
+                    backgroundColor: Color.fromARGB(255, 226, 226, 226),
+                    // backgroundImage: NetworkImage(
+
+                    //   'https://png.pngtree.com/png-vector/20210604/ourmid/pngtree-gray-avatar-placeholder-png-image_3416697.jpg',
+                    //   // 'https://w0.peakpx.com/wallpaper/121/369/HD-wallpaper-beautiful-girl-flower-aesthetic-ultra-girls-flower-girl-style-beautiful-portrait-woman-design-human-background-charming-young-face-female-beauty-model-gerbera-fashion-look-pretty.jpg'
+                    // ),
                   ),
                 ],
               ),
@@ -361,11 +369,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       color: Colors.grey[200],
       child: InkWell(
-        onTap: null,
+        onTap: () {
+          Navigator.pop(context);
+        },
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Icon(Icons.keyboard_backspace_sharp),
         ),
+      ),
+    );
+  }
+
+  dummyBackButton() {
+    return Card(
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Icon(Icons.keyboard_backspace_sharp, color: Colors.white),
       ),
     );
   }

@@ -10,7 +10,10 @@ part 'MyPosts_fetch_fetchList_widget.dart';
 part 'MyPosts_fetch_belowList_widget.dart';
 
 class MyPosts_Fetch_Screen extends StatefulWidget {
-  const MyPosts_Fetch_Screen({Key? key}) : super(key: key);
+  final isFromSearchScreen;
+  final profilePuid;
+  const MyPosts_Fetch_Screen(
+      {required this.isFromSearchScreen, required this.profilePuid});
 
   @override
   _MyPosts_Fetch_ScreenState createState() => _MyPosts_Fetch_ScreenState();
@@ -34,9 +37,10 @@ class _MyPosts_Fetch_ScreenState extends State<MyPosts_Fetch_Screen> {
     //# a scroll listner which listens always
     scrollController.addListener(scrollListener);
 
-    //# to call first set of pages
-    BlocProvider.of<MyPostsFetchBloc>(context)
-        .add(MyPosts_Fetch_onInit_Event());
+    // //# to call first set of pages
+    if (widget.isFromSearchScreen) {
+      onRefreshFunc();
+    }
   }
 
   @override
@@ -52,7 +56,7 @@ class _MyPosts_Fetch_ScreenState extends State<MyPosts_Fetch_Screen> {
       print('list endedddd');
       Future.delayed(Duration(milliseconds: 100), () {
         BlocProvider.of<MyPostsFetchBloc>(context)
-            .add(MyPosts_Fetch_onInit_Event());
+            .add(MyPosts_Fetch_onInit_Event(widget.profilePuid));
       });
     }
   }
@@ -105,6 +109,7 @@ class _MyPosts_Fetch_ScreenState extends State<MyPosts_Fetch_Screen> {
               MyPosts_fetch_belowList_widget(
                 scrollController: scrollController,
                 scrollListener: scrollListener,
+                profilePuid: widget.profilePuid,
               ),
 
               //
@@ -125,7 +130,7 @@ class _MyPosts_Fetch_ScreenState extends State<MyPosts_Fetch_Screen> {
     BlocProvider.of<MyPostsFetchBloc>(context)
         .add(MyPosts_Fetch_onRefresh_Event());
     BlocProvider.of<MyPostsFetchBloc>(context)
-        .add(MyPosts_Fetch_onInit_Event());
+        .add(MyPosts_Fetch_onInit_Event(widget.profilePuid));
     scrollController.addListener(scrollListener);
   }
 }

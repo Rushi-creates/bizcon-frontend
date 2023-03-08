@@ -144,7 +144,9 @@ class _MyAppState extends State<MyApp> {
           ),
           // onGenerateRoute: _appRouter.onGenerateRoute, //dont pass brackets here
 
-          home: SplashScreen()),
+          home: SplashScreen(
+            isStartUp: true,
+          )),
     );
   }
 

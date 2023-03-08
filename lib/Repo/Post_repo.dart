@@ -34,13 +34,13 @@ class Post_api_repo {
 /*                              //! Fetch by Prop                             */
 /* -------------------------------------------------------------------------- */
 
-  fetchPosts_byProp_pUid(int counter) async {
+  fetchPosts_byProp_pUid(int counter, profilePuid) async {
     print("=============${Profile_sp_repo.get_profile()!.p_uid}");
     var rawData = await _provider.fetchJsonList_by_prop(
         fetchUrl: ApiLinks.post_getAll,
         pageSize: pageSizeVar,
         pageNum: counter,
-        customSearch: "&post_fk=${Profile_sp_repo.get_profile()!.p_uid}");
+        customSearch: "&post_fk=${profilePuid}");
     return Post.fromMapList(rawData);
   }
 

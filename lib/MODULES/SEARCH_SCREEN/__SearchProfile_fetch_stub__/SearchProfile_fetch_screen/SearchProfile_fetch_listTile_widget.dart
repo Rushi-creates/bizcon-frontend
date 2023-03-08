@@ -18,7 +18,7 @@ class SearchProfile_fetch_listTile_widget extends StatelessWidget {
         leading: tile_leading(),
         title: tile_title(),
         subtitle: tile_subtitle(),
-        onTap: () async => await fetchListFunc(singleObj, context),
+        onTap: () async => await fetchListFunc(context, singleObj),
       ),
     );
   }
@@ -59,8 +59,12 @@ class SearchProfile_fetch_listTile_widget extends StatelessWidget {
 /* -------------------------------------------------------------------------- */
 
   fetchListFunc(context, listTileInfo) async {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return AdminVerifyScreen();
-    // }));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ProfileScreen(
+        profileObj: singleObj,
+        isFromSearchScreen: true,
+        profilePuid: singleObj.p_uid,
+      );
+    }));
   }
 }
