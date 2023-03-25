@@ -26,14 +26,17 @@ class PostMembersCudBloc
       try {
         //# from api repo
         var response = await postMembers_api_repo.create(event.modelObjToAdd);
+        print(response);
 
-        if (response) {
-          emit(PostMembers_create_AlreadyExisiting_Loaded_State());
-        } else if (response == false) {
-          emit(PostMembers_create_AlreadyWaiting_Loaded_State());
-        } else {
-          PostMembers.fromMap(response);
+        if (response is Map) {
+          // PostMembers.fromMap(response);
           emit(PostMembers_create_Loaded_State());
+        } else {
+          if (response == true) {
+            emit(PostMembers_create_AlreadyExisiting_Loaded_State());
+          } else if (response == false) {
+            emit(PostMembers_create_AlreadyWaiting_Loaded_State());
+          }
         }
 
         //# error

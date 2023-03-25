@@ -1,6 +1,7 @@
 import 'package:bizcon1/MODULES/AUTH/Register_screen/UserRegButtonScreen.dart';
 import 'package:bizcon1/MODULES/AUTH/Switch_tabs/UserSwitchScreen.dart';
 import 'package:bizcon1/MODULES/CREATE_PROFILE/CreateProfileScreen.dart';
+import 'package:bizcon1/MODULES/PROFILE/__MyJoinedPosts_fetch_stub__/MyJoinedPosts_fetch_logic/MyJoinedPosts_fetch_bloc.dart';
 import 'package:bizcon1/Repo/Profile_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 64, 0, 182),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      // backgroundColor: Color.fromARGB(255, 64, 0, 182),
       body:
 
           // BlocListener<InternetBloc, InternetState>(
@@ -104,24 +106,65 @@ class _SplashScreenState extends State<SplashScreen> {
 
   newDesignSplashScreenUi() {
     return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+        Color.fromARGB(255, 3, 4, 36),
+        Color(0xff090a2f),
+        // Color(0xff20459c),
+        // Color.fromARGB(255, 54, 96, 192),
+      ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
       child: Center(
-        child: Text(
-          "Bizcon",
-          // maxLines: 2,
-          // overflow: TextOverflow.ellipsis,
-          // textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            // decoration: TextDecoration.none,
-            // fontStyle: FontStyle.italic,
-            // fontFamily: "FontNameHere" ,
-            // fontWeight: FontWeight.bold,
-            // fontWeight: FontWeight.w300,
-            fontSize: 20.0,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SizedBox(
+            //   height: 45,
+            //   width: 50,
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //         // color: Colors.amber,
+            //         shape: BoxShape.rectangle,
+            //         image: DecorationImage(
+            //             // colorFilter:
+            //             // ColorFilter.mode(Colors.pink, BlendMode.color),
+            //             image: AssetImage('images/lightbulb.png'),
+            //             fit: BoxFit.fill)),
+            //   ),
+            // ),
+            // SizedBox(width: 5),
+            // SizedBox(
+            //   height: 90,
+            //   width: 200,
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //         // color: Colors.amber,
+            //         shape: BoxShape.rectangle,
+            //         image: DecorationImage(
+            //             // colorFilter:
+            //             // ColorFilter.mode(Colors.pink, BlendMode.color),
+            //             image: AssetImage('images/bizcon.png'),
+            //             fit: BoxFit.fill)),
+            //   ),
+            // ),
+            Text(
+              "Bizcon",
+              // maxLines: 2,
+              // overflow: TextOverflow.ellipsis,
+              // textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                // decoration: TextDecoration.none,
+                // fontStyle: FontStyle.italic,
+                // fontFamily: "FontNameHere" ,
+                // fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.w300,
+                fontSize: 30.0,
+              ),
+            ),
+          ],
         ),
       ),
-      // child: Image.asset("images/blackLogo.png", height: 250, width: 250)),
     );
   }
 
@@ -177,6 +220,8 @@ class _SplashScreenState extends State<SplashScreen> {
         .add(MyPosts_Fetch_onRefresh_Event());
     BlocProvider.of<AllPostsFetchBloc>(context)
         .add(AllPosts_Fetch_onRefresh_Event());
+    BlocProvider.of<MyJoinedPostsFetchBloc>(context)
+        .add(MyJoinedPosts_Fetch_onRefresh_Event());
   }
 
   initializeBlocs() {
@@ -187,5 +232,9 @@ class _SplashScreenState extends State<SplashScreen> {
     //# to call first set of pages
     BlocProvider.of<AllPostsFetchBloc>(context)
         .add(AllPosts_Fetch_onInit_Event());
+
+    //#
+    BlocProvider.of<MyJoinedPostsFetchBloc>(context).add(
+        MyJoinedPosts_Fetch_onInit_Event(Profile_sp_repo.get_profile()!.p_uid));
   }
 }

@@ -41,12 +41,10 @@ class _PostMembers_cud_screenState extends State<PostMembers_cud_screen> {
     super.initState();
     if (widget.singleObj == null) {
       //pass all the controllers here
-
     } else {
       // assign controller to model props
       // desController.text = widget.singleObj!.propName;
       // /(make sure model propName is proper)
-
     }
   }
 
@@ -87,22 +85,49 @@ class _PostMembers_cud_screenState extends State<PostMembers_cud_screen> {
               width: MyComponents.screenSize(context).width * 0.9,
               child: Card(
                 color: Colors.indigo[900],
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        myText(widget.singleObj.title),
-                        myText(widget.singleObj.description),
-                        myText(widget.singleObj.goals),
-                        myText(widget.singleObj.salary_method),
-                        myText(widget.singleObj.qualifications_req),
-                        myText(widget.singleObj.skills_req),
-                        myText(widget.singleObj.max_users.toString()),
-                        myText(widget.singleObj.recordDate),
-                        myText(widget.singleObj.owner_username),
-                        myText(widget.singleObj.owner_bio),
-                      ]),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: myText(
+                                widget.singleObj.recordDate.substring(0, 10),
+                                fontSize: 12),
+                          ),
+                          myText(widget.singleObj.title,
+                              fontSize: 24, isBold: true),
+                          myText(widget.singleObj.description),
+                          SizedBox(height: 40),
+                          myText('Goals: ' + widget.singleObj.goals),
+                          Divider(),
+                          myText('Salary method: ' +
+                              widget.singleObj.salary_method),
+                          Divider(),
+                          myText('Qualifications required: ' +
+                              widget.singleObj.qualifications_req),
+                          Divider(),
+                          myText('Skills required: ' +
+                              widget.singleObj.skills_req),
+                          Divider(),
+                          myText('Max users: ' +
+                              widget.singleObj.max_users.toString()),
+                          Divider(),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                myText('Post by', isBold: true, fontSize: 15),
+                                myText(widget.singleObj.owner_username),
+                                // myText(widget.singleObj.owner_bio),
+                              ],
+                            ),
+                          )
+                        ]),
+                  ),
                 ),
               ),
             ),
@@ -116,7 +141,7 @@ class _PostMembers_cud_screenState extends State<PostMembers_cud_screen> {
     );
   }
 
-  myText(text) {
+  myText(String text, {double fontSize = 14.0, bool isBold = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,16 +151,15 @@ class _PostMembers_cud_screenState extends State<PostMembers_cud_screen> {
           // overflow: TextOverflow.ellipsis,
           // textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.indigo,
             // decoration: TextDecoration.none,
             // fontStyle: FontStyle.italic,
             // fontFamily: "FontNameHere" ,
-            fontWeight: FontWeight.bold,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             // fontWeight: FontWeight.w300,
-            // fontSize: 20.0,
+            fontSize: fontSize,
           ),
         ),
-        Divider(),
       ],
     );
   }

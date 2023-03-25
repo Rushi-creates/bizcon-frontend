@@ -4,6 +4,7 @@ import 'package:bizcon1/MODULES/AUTH/Otp_screen/__UserOtp__/UserOtpButton_logic/
 import 'package:bizcon1/MODULES/AUTH/Otp_screen/__UserOtp__/UserOtpForm_logic/user_otp_form_bloc.dart';
 import 'package:bizcon1/MODULES/AUTH/Register_screen/UserRegButton_logic/user_reg_button_bloc.dart';
 import 'package:bizcon1/MODULES/AUTH/Switch_tabs/UserSwitchScreen_logic/user_switch_screen_bloc.dart';
+import 'package:bizcon1/MODULES/CHATS/Chats_cud_logic/Chats_cud_bloc.dart';
 import 'package:bizcon1/MODULES/CREATE_POST/Post_cud_logic/Post_cud_bloc.dart';
 import 'package:bizcon1/MODULES/CREATE_PROFILE/edit_profile_logic/edit_profile_bloc.dart';
 import 'package:bizcon1/MODULES/My_BottomBar_stub/MyBottomBar_logic/my_bottom_bar_bloc.dart';
@@ -24,18 +25,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'MODULES/HOME/AllPosts_fetch_logic/AllPosts_fetch_bloc.dart';
 import 'MODULES/HOME/PostMembers_cud_logic/PostMembers_cud_bloc.dart';
+import 'old/PostCard_widget copy.dart';
+import 'old/TrialPostCard.dart';
 import 'MODULES/POST/__AcceptedPostMembers_fetch_stub__/AcceptedPostMembers_fetch_logic/AcceptedPostMembers_fetch_bloc.dart';
 import 'MODULES/POST/__WaitingPostMembers_fetch_stub__/WaitingPostMembers_fetch_logic/WaitingPostMembers_fetch_bloc.dart';
 import 'MODULES/PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_logic/MyPosts_fetch_bloc.dart';
+import 'MODULES/PostCard.dart';
 import 'MODULES/Splash_stub/SplashScreen.dart';
 import 'MODULES/Splash_stub/Splash_roles_logic/splash_roles_bloc.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
 
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Profile_sp_repo profile_sp_repo = Profile_sp_repo();
 
   // await profile_sp_repo.remove_profile();
@@ -135,6 +143,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => AppliedToJoinPostsFetchBloc(),
         ),
+        BlocProvider(
+          create: (context) => ChatsCudBloc(),
+        ),
       ],
       child: MaterialApp(
           title: 'Flutter app',
@@ -147,6 +158,8 @@ class _MyAppState extends State<MyApp> {
           home: SplashScreen(
             isStartUp: true,
           )),
+      // home: TrialPostCard(),
+      // )
     );
   }
 

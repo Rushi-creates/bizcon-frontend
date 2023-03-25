@@ -12,3 +12,5 @@ class MyBottomBar_OneCLicked_Event extends MyBottomBarEvent {}
 class MyBottomBar_TwoCLicked_Event extends MyBottomBarEvent {}
 
 class MyBottomBar_ThreeCLicked_Event extends MyBottomBarEvent {}
+
+class MyBottomBar_FourCLicked_Event extends MyBottomBarEvent {}

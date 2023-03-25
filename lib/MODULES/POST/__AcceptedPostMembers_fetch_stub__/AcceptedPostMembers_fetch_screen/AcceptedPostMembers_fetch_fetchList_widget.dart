@@ -44,8 +44,11 @@ class AcceptedPostMembers_fetch_fetchList_widget extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: listArg.length,
             itemBuilder: (context, i) {
-              return AcceptedPostMembers_fetch_listTile_widget(
-                  singleObj: listArg[i], fromProfile: fromProfile);
+              return
+                  // CommonListTile_widget();
+
+                  AcceptedPostMembers_fetch_listTile_widget(
+                      singleObj: listArg[i], fromProfile: fromProfile);
             },
           );
   }

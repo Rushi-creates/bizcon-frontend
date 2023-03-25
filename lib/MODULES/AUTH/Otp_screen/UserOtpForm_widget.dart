@@ -1,3 +1,4 @@
+import 'package:bizcon1/MODULES/COMMON/myComponents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,69 +25,212 @@ class _UserOtpFormState extends State<UserOtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return myUserOtpForm();
+    return newUserOtpForm();
   }
 
-  myUserOtpForm() {
-    var dimVar =
-        MediaQuery.of(context).size; //declare only this line in build()
-    return // get parent height
-        Padding(
-      padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
-      child: Container(
-        width: double.infinity,
-        // height: double.infinity,
-        margin: const EdgeInsets.all(0.0),
-        color: Colors.pink,
-
-        child: Card(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Form(
-              key: _createFormKey,
-              child: Column(
+  newUserOtpForm() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 40, right: 40),
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Column(
+            children: [
+              Stack(
+                alignment: Alignment.topRight,
                 children: [
-                  emailTextField(emailController, 'Enter email'),
-                  SizedBox(height: 20),
-                  numTextField(numberController, 'Enter number'),
-                  SizedBox(height: 20),
-                  passTextField(passwordController, 'Enter password'),
-                  SizedBox(height: 20),
-                  otpErrorText_STATES(),
-                  myOtpButton_STATES(),
+                  Column(
+                    children: [
+                      SizedBox(height: 50),
+                      Card(
+                          shadowColor: Colors.blue,
+                          elevation: 10,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: signUpText(),
+                                ),
+                                SizedBox(height: 30),
+                                myActualForm(),
+                                SizedBox(height: 10),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
+
+                  //!
+
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SizedBox(
+                      height: 140,
+                      width: 140,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            image: DecorationImage(
+                                image: AssetImage('images/register_rocket.png'),
+                                fit: BoxFit.fill)),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
+              SizedBox(height: 30)
+            ],
           ),
+
+          //!
+          // Align(
+          //   alignment: Alignment.bottomRight,
+          //   child: myOtpButton_STATES(),
+          // ),
+          myOtpButton_STATES(),
+        ],
+      ),
+    );
+  }
+
+  signUpText() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Text(
+        'Sign Up',
+        // maxLines: 2,
+        // overflow: TextOverflow.ellipsis,
+        // textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          // decoration: TextDecoration.none,
+          // fontStyle: FontStyle.italic,
+          // fontFamily: "FontNameHere" ,
+          fontWeight: FontWeight.bold,
+          // fontWeight: FontWeight.w300,
+          fontSize: 25.0,
         ),
       ),
     );
   }
 
+  myActualForm() {
+    return Form(
+      key: _createFormKey,
+      child: Column(
+        children: [
+          emailTextField(emailController, 'Email ID'),
+          SizedBox(height: 20),
+          numTextField(numberController, 'Number'),
+          SizedBox(height: 20),
+          passTextField(passwordController, 'Password'),
+          SizedBox(height: 20),
+          otpErrorText_STATES(),
+        ],
+      ),
+    );
+  }
+
+  // myUserOtpForm() {
+  //   var dimVar =
+  //       MediaQuery.of(context).size; //declare only this line in build()
+  //   return // get parent height
+  //       Padding(
+  //     padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
+  //     child: Container(
+  //       width: double.infinity,
+  //       // height: double.infinity,
+  //       margin: const EdgeInsets.all(0.0),
+  //       // color: Colors.pink,
+
+  //       child: Card(
+  //         elevation: 0,
+  //         color: Colors.white,
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(15.0),
+  //           child: Form(
+  //             key: _createFormKey,
+  //             child: Column(
+  //               children: [
+  //                 emailTextField(emailController, 'Enter email'),
+  //                 SizedBox(height: 20),
+  //                 numTextField(numberController, 'Enter number'),
+  //                 SizedBox(height: 20),
+  //                 passTextField(passwordController, 'Enter password'),
+  //                 SizedBox(height: 20),
+  //                 otpErrorText_STATES(),
+  //                 myOtpButton_STATES(),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
 /* -------------------------------------------------------------------------- */
 /*                              //! Body widgets                              */
 /* -------------------------------------------------------------------------- */
 
+  // myOtpButtonDesign() {
+  //   var dimVar = MediaQuery.of(context).size;
+
+  //   return TextButton(
+  //     // onPressed: () async => myOtpButton_func(),
+  //     onPressed: () async => FAKE_myOtpButton_func(),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           border: Border.all(
+  //             width: 2.0,
+  //             color: Color.fromARGB(255, 68, 202, 255),
+  //           )),
+  //       width: dimVar.width * 0.7,
+  //       height: dimVar.height * 0.05,
+  //       child: Center(
+  //         child: Text(
+  //           'Send OTP',
+  //           style: TextStyle(
+  //               color: Color.fromARGB(255, 68, 202, 255),
+  //               fontWeight: FontWeight.bold,
+  //               letterSpacing: 2),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   myOtpButtonDesign() {
     var dimVar = MediaQuery.of(context).size;
 
-    return TextButton(
-      // onPressed: () async => myOtpButton_func(),
-      onPressed: () async => FAKE_myOtpButton_func(),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(width: 2.0, color: Colors.pink)),
-        width: dimVar.width * 0.7,
-        height: dimVar.height * 0.05,
-        child: Center(
-          child: Text(
-            'Send OTP',
-            style: TextStyle(
-                color: Colors.pink,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2),
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: TextButton(
+        // onPressed: () async => myOtpButton_func(),
+        onPressed: () async => FAKE_myOtpButton_func(),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              color: Color.fromARGB(255, 16, 26, 161),
+              // color: Color.fromARGB(255, 68, 202, 255),
+              border: Border.all(
+                width: 2.0,
+                color: Colors.white,
+              )),
+          width: dimVar.width * 0.4,
+          height: dimVar.height * 0.06,
+          child: Center(
+            child: Text(
+              'Send OTP',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2),
+            ),
           ),
         ),
       ),
@@ -98,77 +242,116 @@ class _UserOtpFormState extends State<UserOtpForm> {
 /* -------------------------------------------------------------------------- */
 
   emailTextField(controller, String label) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: TextInputType.multiline,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: label, //hint text here
+    return SizedBox(
+      // height: MyComponents.screenSize(context).height * 0.05,
+      width: MyComponents.screenSize(context).width,
+      child: TextFormField(
+        style: TextStyle(fontSize: 14.0),
+        controller: controller,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          // errorText: ,
+          suffixIcon: Icon(
+            Icons.email,
+            size: 18,
+            color: Colors.grey[400],
+          ),
+
+          // border: OutlineInputBorder(),
+          labelText: label, //hint text here
+          labelStyle: TextStyle(fontSize: 14.0),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Email connot be empty'; //if empty give error msg here
+          } else if (!value.contains('@'))
+            return 'Email should contain @';
+          else if (!value.contains('.com')) return 'Email should contain .com';
+          return null;
+        },
+        onChanged: (value) {
+          _createFormKey.currentState!.validate();
+        },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Email connot be empty'; //if empty give error msg here
-        } else if (!value.contains('@'))
-          return 'Email should contain @';
-        else if (!value.contains('.com')) return 'Email should contain .com';
-        return null;
-      },
-      onChanged: (value) {
-        _createFormKey.currentState!.validate();
-      },
     );
   }
 
   passTextField(controller, String label) {
     //******First text Field from here *****
-    return TextFormField(
-      controller: controller,
-      keyboardType: TextInputType.multiline,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: label, //hint text here
+    return SizedBox(
+      // height: MyComponents.screenSize(context).height * 0.05,
+      width: MyComponents.screenSize(context).width,
+      child: TextFormField(
+        style: TextStyle(fontSize: 14.0),
+
+        controller: controller,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(fontSize: 14.0),
+
+          suffixIcon: Icon(
+            Icons.privacy_tip_sharp,
+            size: 18,
+            color: Colors.grey[400],
+          ),
+          // border: OutlineInputBorder(),
+          labelText: label, //hint text here
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Password cannot be empty'; //if empty give error msg here
+          } else if (value.length < 4) return 'Password too short';
+          return null;
+        },
+        onChanged: (value) {
+          _createFormKey.currentState!.validate();
+        },
+        // onChanged: (value) {
+        //   BlocProvider.of<UserLoginFormBloc>(context)
+        //       .add(UserLoginPass_Changed_Event(controller.text));
+        // },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Password cannot be empty'; //if empty give error msg here
-        } else if (value.length < 4) return 'Password too short';
-        return null;
-      },
-      onChanged: (value) {
-        _createFormKey.currentState!.validate();
-      },
-      // onChanged: (value) {
-      //   BlocProvider.of<UserLoginFormBloc>(context)
-      //       .add(UserLoginPass_Changed_Event(controller.text));
-      // },
     );
   }
 
   numTextField(controller, String label) {
     //******First text Field from here *****
-    return TextFormField(
-      controller: controller,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: label, //hint text here
+    return SizedBox(
+      // height: MyComponents.screenSize(context).height * 0.06,
+      width: MyComponents.screenSize(context).width,
+      child: TextFormField(
+        style: TextStyle(fontSize: 14.0),
+
+        controller: controller,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          suffixIcon: Icon(
+            Icons.numbers,
+            size: 18,
+            color: Colors.grey[400],
+          ),
+          labelStyle: TextStyle(fontSize: 14.0),
+
+          // border: OutlineInputBorder(),
+          labelText: label, //hint text here
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Number cannot be empty'; //if empty give error msg here
+          } else if (value.length < 10)
+            return 'Length of number must be 10';
+          else if (value.length > 10)
+            return 'Number cannot be more than 10 digits';
+          return null;
+        },
+        onChanged: (value) {
+          _createFormKey.currentState!.validate();
+        },
+        // onChanged: (value) {
+        //   BlocProvider.of<UserLoginFormBloc>(context)
+        //       .add(UserLoginPass_Changed_Event(controller.text));
+        // },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Number cannot be empty'; //if empty give error msg here
-        } else if (value.length < 10)
-          return 'Length of number must be 10';
-        else if (value.length > 10)
-          return 'Number cannot be more than 10 digits';
-        return null;
-      },
-      onChanged: (value) {
-        _createFormKey.currentState!.validate();
-      },
-      // onChanged: (value) {
-      //   BlocProvider.of<UserLoginFormBloc>(context)
-      //       .add(UserLoginPass_Changed_Event(controller.text));
-      // },
     );
   }
 
@@ -255,7 +438,7 @@ class _UserOtpFormState extends State<UserOtpForm> {
           padding: const EdgeInsets.all(8.0),
           child: Text('Please wait...'),
         ),
-        CircularProgressIndicator(),
+        LinearProgressIndicator(),
       ],
     ));
   }

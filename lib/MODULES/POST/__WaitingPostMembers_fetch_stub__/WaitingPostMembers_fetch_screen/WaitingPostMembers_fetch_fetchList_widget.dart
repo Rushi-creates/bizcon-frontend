@@ -13,7 +13,8 @@ class WaitingPostMembers_fetch_fetchList_widget extends StatelessWidget {
 /* -------------------------------------------------------------------------- */
 
   fetchListStates() {
-    return BlocBuilder<WaitingPostMembersFetchBloc, WaitingPostMembersFetchState>(builder: (context, state) {
+    return BlocBuilder<WaitingPostMembersFetchBloc,
+        WaitingPostMembersFetchState>(builder: (context, state) {
       if (state is WaitingPostMembers_Fetch_Loaded_State) {
         return buildFetchList(state.modelObjList);
       } else if (state is WaitingPostMembers_Fetch_More_Loaded_ButEmpty_State) {
@@ -41,7 +42,8 @@ class WaitingPostMembers_fetch_fetchList_widget extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: listArg.length,
             itemBuilder: (context, i) {
-              return WaitingPostMembers_fetch_listTile_widget(singleObj: listArg[i]);
+              return WaitingPostMembers_fetch_listTile_widget(
+                  singleObj: listArg[i]);
             },
           );
   }

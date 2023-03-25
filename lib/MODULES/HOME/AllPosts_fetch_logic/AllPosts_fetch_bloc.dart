@@ -1,10 +1,10 @@
 import 'package:bizcon1/Repo/Post_repo.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:equatable/equatable.dart';
 
 import '../../../service_layer_stub/Exceptions/Exceptions.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'AllPosts_fetch_event.dart';
 part 'AllPosts_fetch_state.dart';
 

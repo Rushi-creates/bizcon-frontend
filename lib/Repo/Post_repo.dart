@@ -72,7 +72,7 @@ class Post_api_repo {
 /* -------------------------------------------------------------------------- */
   // update(modelObj, modelObj_id) async {
   //   var rawData =
-  //       await _provider.updateApi(ApiLinks.updateApiUrl, modelObj, modelObj_id);
+  //       await _provider.updateApi(ApiLinks.post_update, modelObj, modelObj_id);
   //   return Post.fromMap(rawData);
   // }
 
@@ -80,10 +80,11 @@ class Post_api_repo {
 /*                                 //! Delete                                 */
 /* -------------------------------------------------------------------------- */
   // doesnt return a map, just some string ( so can't use AccountModel.fromJson)
-//   delete(modelObjArg_Id) async {
-//     var rawData = await _provider.deleteApi(ApiLinks.deleteApiUrl, modelObjArg_Id);
-//     return rawData; // as api returns string, not a map
-//   }
+  // delete(modelObjArg_Id) async {
+  //   var rawData =
+  //       await _provider.deleteApi(ApiLinks.post_delete, modelObjArg_Id);
+  //   return rawData; // as api returns string, not a map
+  // }
 }
 
 /* -------------------------------------------------------------------------- */

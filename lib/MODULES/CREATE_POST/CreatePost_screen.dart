@@ -293,11 +293,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                 child: Column(
                   children: [
-                    customTextFieldUi(
-                        title_controller, 'Give title to your idea'),
-                    customTextFieldUi(
-                        description_controller, 'Explain your idea'),
-                    customTextFieldUi(goals_controller, 'Goals of your idea'),
+                    customTextFieldUi(title_controller,
+                        'Give title to your idea', Icons.lightbulb),
+                    customTextFieldUi(description_controller,
+                        'Explain your idea', Icons.edit),
+                    customTextFieldUi(goals_controller, 'Goals of your idea',
+                        Icons.track_changes),
                   ],
                 ),
               )
@@ -342,14 +343,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                 child: Column(
                   children: [
-                    customTextFieldUi(
-                        salaryMethod_controller, 'Salary methods'),
+                    customTextFieldUi(salaryMethod_controller, 'Salary methods',
+                        Icons.attach_money),
                     customTextFieldUi(qualifications_req_controller,
-                        'Qualifications required to join'),
-                    customTextFieldUi(
-                        skills_req_controller, 'Skills required to join'),
-                    customTextFieldUi(
-                        maxUsers_controller, 'Max number of users who can join',
+                        'Qualifications required to join', Icons.book),
+                    customTextFieldUi(skills_req_controller,
+                        'Skills required to join', Icons.leaderboard),
+                    customTextFieldUi(maxUsers_controller,
+                        'Max number of users who can join', Icons.group,
                         isKbNumber: true),
                   ],
                 ),
@@ -361,7 +362,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   customTextFieldUi(
     controllerArg,
-    String labelTextArg, {
+    String labelTextArg,
+    IconData icon, {
     bool isKbNumber = false,
   }) {
     return Padding(
@@ -384,7 +386,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             return null;
           },
           decoration: InputDecoration(
-            errorStyle: TextStyle(color: Colors.black),
+            suffixIcon: Icon(
+              icon,
+              color: Color.fromARGB(255, 243, 222, 255),
+              size: 12,
+            ),
+            errorStyle: TextStyle(
+                color: Color.fromARGB(255, 234, 181, 255), fontSize: 10),
             border: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
@@ -392,6 +400,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               ),
             ),
             labelText: labelTextArg,
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromARGB(255, 255, 0, 140)),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromARGB(255, 182, 0, 206)),
+            ),
+
             //hint text here
             labelStyle: TextStyle(
               fontSize: 12,

@@ -31,7 +31,7 @@ class _UserRegButtonScreenState extends State<UserRegButtonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       appBar: myHeader(),
       body: myBody(),
     );
@@ -73,6 +73,7 @@ class _UserRegButtonScreenState extends State<UserRegButtonScreen> {
 
   myOtpForm() {
     return Card(
+      elevation: 0,
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -82,6 +83,10 @@ class _UserRegButtonScreenState extends State<UserRegButtonScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              Align(
+                alignment: Alignment.center,
+                child: myImage(),
+              ),
               otpTextField(otpController, 'Enter the 4 digit otp here'),
               regErrorText_STATES(),
               Center(
@@ -99,22 +104,71 @@ class _UserRegButtonScreenState extends State<UserRegButtonScreen> {
 /* -------------------------------------------------------------------------- */
 /*                              //! body widgets                              */
 /* -------------------------------------------------------------------------- */
+  // registerButtonDesgin() {
+  //   var dimVar = MediaQuery.of(context).size;
+
+  //   return TextButton(
+  //     onPressed: () async => registerFunctionality(),
+  //     child: Container(
+  //       decoration: BoxDecoration(color: Color.fromARGB(255, 0, 7, 102)),
+  //       width: dimVar.width * 0.7,
+  //       height: dimVar.height * 0.05,
+  //       child: Center(
+  //         child: Text(
+  //           'Register',
+  //           style: TextStyle(
+  //               color: Colors.white,
+  //               fontWeight: FontWeight.bold,
+  //               letterSpacing: 2),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  myImage() {
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: SizedBox(
+        height: 250,
+        width: 300,
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              image: DecorationImage(
+                  image: AssetImage('images/otp1.png'), fit: BoxFit.fill)),
+        ),
+      ),
+    );
+  }
+
   registerButtonDesgin() {
     var dimVar = MediaQuery.of(context).size;
 
-    return TextButton(
-      onPressed: () async => registerFunctionality(),
-      child: Container(
-        decoration: BoxDecoration(color: Colors.pink),
-        width: dimVar.width * 0.7,
-        height: dimVar.height * 0.05,
-        child: Center(
-          child: Text(
-            'Register',
-            style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: TextButton(
+        // onPressed: () async => myOtpButton_func(),
+        onPressed: () async => registerFunctionality(),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Color.fromARGB(255, 16, 26, 161),
+              // color: Color.fromARGB(255, 68, 202, 255),
+              border: Border.all(
+                width: 2.0,
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2),
+              )),
+          width: dimVar.width * 0.8,
+          height: dimVar.height * 0.06,
+          child: Center(
+            child: Text(
+              'Register',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2),
+            ),
           ),
         ),
       ),
@@ -150,7 +204,7 @@ class _UserRegButtonScreenState extends State<UserRegButtonScreen> {
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
-      // elevation: 0.0,
+      elevation: 0.0,
       // leading: IconButton(
       //     icon: Icon(
       //       Icons.arrow_back,

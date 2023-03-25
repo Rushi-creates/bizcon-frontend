@@ -1,16 +1,19 @@
-import '../service_layer_stub/models/PostMembers.dart';
-import '../service_layer_stub/services/ApiHelper.dart';
-import '../service_layer_stub/services/SharedPreferences_helper.dart';
-import '../service_layer_stub/services/secret_credentials/global.dart';
+import 'dart:convert';
+
+import 'package:bizcon1/service_layer_stub/services/firebase_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../service_layer_stub/models/Chat.dart';
 
 //Todo : (IMP) All functions of this class must be await , or else wont work
-class PostMembers_api_repo {
+class Chats_api_repo {
 /* -------------------------------------------------------------------------- */
 /*                               //! Field vars                               */
 /* -------------------------------------------------------------------------- */
 
   // to access funcs of api service class here
-  final _provider = ApiHelper.ApiHelperObj;
+  // final _provider = ApiHelper.ApiHelperObj;
+  final _provider = FirebaseHelper.firebaseHelper;
 
   int pageSizeVar = 15; // used in pagination of fetches
 
@@ -24,94 +27,70 @@ class PostMembers_api_repo {
   //     pageNum: counter,
   //   );
 
-  //   return PostMembers.fromMapList(rawData);
+  //   return Chats.fromMapList(rawData);
   // }
 
 /* -------------------------------------------------------------------------- */
 /*                              //! Fetch by Prop                             */
 /* -------------------------------------------------------------------------- */
 
-  fetchProp_postFk_isAcceptedFalse(int counter, int post_fk) async {
-    var rawData = await _provider.fetchJsonList_by_prop(
-        fetchUrl: ApiLinks.postMembers_getAll,
-        pageSize: pageSizeVar,
-        pageNum: counter,
-        customSearch: '&post_fk=$post_fk&isAccepted=false');
+  // fetchProp(int counter) async {
+  //   var rawData = await _provider.fetchJsonList_by_prop(
+  //     fetchUrl: ApiLinks.someUrl,
+  //     pageSize: pageSizeVar,
+  //     pageNum: counter,
+  //     customSearch: );
 
-    return PostMembers.fromMapList(rawData);
-  }
+  //   return Chats.fromMapList(rawData);
+  // }
 
-  fetchProp_postFk_isAcceptedTrue(int counter, int post_fk) async {
-    var rawData = await _provider.fetchJsonList_by_prop(
-        fetchUrl: ApiLinks.postMembers_getAll,
-        pageSize: pageSizeVar,
-        pageNum: counter,
-        customSearch: '&post_fk=$post_fk&isAccepted=true');
-
-    return PostMembers.fromMapList(rawData);
-  }
-
-  fetchProp_postFk_joinedPosts(int counter, int member_fk) async {
-    var rawData = await _provider.fetchJsonList_by_prop(
-        fetchUrl: ApiLinks.postMembers_getAll,
-        pageSize: pageSizeVar,
-        pageNum: counter,
-        customSearch: '&member_fk=$member_fk&isAccepted=true');
-
-    return PostMembers.fromMapList(rawData);
-  }
-
-  fetchProp_postFk_appliedToJoin(int counter, int member_fk) async {
-    var rawData = await _provider.fetchJsonList_by_prop(
-        fetchUrl: ApiLinks.postMembers_getAll,
-        pageSize: pageSizeVar,
-        pageNum: counter,
-        customSearch: '&member_fk=$member_fk&isAccepted=false');
-
-    return PostMembers.fromMapList(rawData);
-  }
 /* -------------------------------------------------------------------------- */
 /*                               //! Fetch by id                              */
 /* -------------------------------------------------------------------------- */
   // fetchById(modelObj_id) async {
   //   var rawData = await _provider.fetchSingleJson_by_id(ApiLinks.fetchUrl, modelObj_id);
 
-  //   return PostMembers.fromMap(rawData);
+  //   return Chats.fromMap(rawData);
   // }
 
 /* -------------------------------------------------------------------------- */
 /*                                 //! Create                                 */
 /* -------------------------------------------------------------------------- */
-  create(modelObj) async {
-    // print(modelObj);
-    // print(modelObj.toJson());
-    var rawData = await _provider.addApi(ApiLinks.postMembers_add, modelObj);
-    print(rawData);
+  createGroup(collectionName, modelObj) async {
+    var rawData = await _provider.add(
+        FirebaseFirestore.instance.collection(collectionName), modelObj);
+
     return rawData;
-    // print(PostMembers.fromMap(rawData));
-    // return PostMembers.fromMap(rawData);
+
+    // return Chats.fromMap(rawData);
+  }
+
+  sendMessage(collectionName, modelObj) async {
+    var rawData = await _provider.add(
+        FirebaseFirestore.instance.collection(collectionName), modelObj);
+
+    return rawData;
+
+    // return Chats.fromMap(rawData);
   }
 
 /* -------------------------------------------------------------------------- */
 /*                                 //! Update                                 */
 /* -------------------------------------------------------------------------- */
-  update(modelObj, modelObj_id) async {
-    var rawData = await _provider.updateApi(
-        ApiLinks.postMembers_update, modelObj, modelObj_id);
-
-    print(rawData);
-    return PostMembers.fromMap(rawData);
-  }
+  // update(modelObj, modelObj_id) async {
+  //   var rawData =
+  //       await _provider.updateApi(ApiLinks.updateApiUrl, modelObj, modelObj_id);
+  //   return Chats.fromMap(rawData);
+  // }
 
 /* -------------------------------------------------------------------------- */
 /*                                 //! Delete                                 */
 /* -------------------------------------------------------------------------- */
   // doesnt return a map, just some string ( so can't use AccountModel.fromJson)
-  delete(modelObjArg_Id) async {
-    var rawData =
-        await _provider.deleteApi(ApiLinks.postMembers_delete, modelObjArg_Id);
-    return rawData; // as api returns string, not a map
-  }
+//   delete(modelObjArg_Id) async {
+//     var rawData = await _provider.deleteApi(ApiLinks.deleteApiUrl, modelObjArg_Id);
+//     return rawData; // as api returns string, not a map
+//   }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -123,17 +102,18 @@ class PostMembers_api_repo {
 // await CacheHelper.set('UserAcc');
 // await CacheHelper.remove('UserAcc');
 
-class PostMembers_sp_repo {
-  set_postmembers(value) async {
-    return await CacheHelper.set('postmembers', value);
-  }
+//  class Chats_sp_repo {
 
-  //! do not use await in get
-  get_postmembers(key) {
-    return CacheHelper.get(key);
-  }
+//   set_chats(value) async {
+//    return await CacheHelper.set('chats', value);
+//   }
 
-  remove_postmembers(key) async {
-    return await CacheHelper.remove(key);
-  }
-}
+//   //! do not use await in get
+//   get_chats(key)  {
+//    return CacheHelper.get(key);
+//   }
+
+//   remove_chats(key) async {
+//    return await CacheHelper.remove(key);
+//   }
+// }

@@ -68,7 +68,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return MyJoinedPosts_Fetch_Screen(member_fk: widget.profileObj.p_uid);
+          return MyJoinedPosts_Fetch_Screen(
+            member_fk: widget.profileObj.p_uid,
+            isFromProfile: true,
+          );
         }));
       },
       child: Padding(

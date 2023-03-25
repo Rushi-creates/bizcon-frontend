@@ -12,8 +12,8 @@ class ApiLinks {
 /* -------------------------------------------------------------------------- */
 /*                                 //! Domain                                 */
 /* -------------------------------------------------------------------------- */
-  static const String domainUrl =
-      'https://bizon-pythonanywhere-1-production.up.railway.app/';
+  static const String domainUrl = 'https://bizcon-production.up.railway.app/';
+  // 'https://bizon-pythonanywhere-1-production.up.railway.app/';
 
 /* -------------------------------------------------------------------------- */
 /*                                //! Endpoints                               */

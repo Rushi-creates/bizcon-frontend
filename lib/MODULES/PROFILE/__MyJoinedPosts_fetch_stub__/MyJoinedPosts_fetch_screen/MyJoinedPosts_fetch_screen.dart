@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../../../CHATS/Chat_screen.dart';
 import '../../../COMMON/myComponents.dart';
 import '../MyJoinedPosts_fetch_logic/MyJoinedPosts_fetch_bloc.dart';
 
@@ -10,7 +12,9 @@ part 'MyJoinedPosts_fetch_belowList_widget.dart';
 
 class MyJoinedPosts_Fetch_Screen extends StatefulWidget {
   final member_fk;
-  const MyJoinedPosts_Fetch_Screen({required this.member_fk});
+  final isFromProfile;
+  const MyJoinedPosts_Fetch_Screen(
+      {required this.member_fk, required this.isFromProfile});
 
   @override
   _MyJoinedPosts_Fetch_ScreenState createState() =>
@@ -137,16 +141,19 @@ class _MyJoinedPosts_Fetch_ScreenState
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
-      leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            BlocProvider.of<MyJoinedPostsFetchBloc>(context)
-                .add(MyJoinedPosts_Fetch_onRefresh_Event());
-            Navigator.pop(context);
-          }),
+      elevation: 2,
+      leading: widget.isFromProfile
+          ? IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                BlocProvider.of<MyJoinedPostsFetchBloc>(context)
+                    .add(MyJoinedPosts_Fetch_onRefresh_Event());
+                Navigator.pop(context);
+              })
+          : Container(),
       title: Text(
         'My joined Posts',
         style: TextStyle(color: Colors.black
@@ -154,30 +161,19 @@ class _MyJoinedPosts_Fetch_ScreenState
             // fontSize: 15,
             ),
       ),
-      // actions: [
-      //   Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: IconButton(
-      //         onPressed: () {
-      //           // Navigator.pushNamed(context, '/Home');
-      //         },
-      //         icon: Icon(
-      //           Icons.settings,
-      //           color: Colors.black,
-      //         )),
-      //   )
-      //   // Padding(
-      //   //   padding: const EdgeInsets.all(8.0),
-      //   //   child: IconButton(
-      //   //       onPressed: () {
-      //   //         onRefreshFunc()
-      //   //       },
-      //   //       icon: Icon(
-      //   //         Icons.refresh,
-      //   //         color: Colors.black,
-      //   //       )),
-      //   // )
-      // ],
+      actions: [
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: IconButton(
+        //       onPressed: () {
+        //         onRefreshFunc()
+        //       },
+        //       icon: Icon(
+        //         Icons.refresh,
+        //         color: Colors.black,
+        //       )),
+        // )
+      ],
     );
   }
 

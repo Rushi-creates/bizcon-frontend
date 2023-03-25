@@ -7,10 +7,12 @@ abstract class MyBottomBarState extends Equatable {
   List<Object> get props => [];
 }
 
-class MyBottomBarInitial extends MyBottomBarState {}
+// class MyBottomBarInitial extends MyBottomBarState {}
 
 class MyBottomBar_openOne_State extends MyBottomBarState {}
 
 class MyBottomBar_openTwo_State extends MyBottomBarState {}
 
 class MyBottomBar_openThree_State extends MyBottomBarState {}
+
+class MyBottomBar_openFour_State extends MyBottomBarState {}

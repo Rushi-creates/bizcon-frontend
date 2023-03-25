@@ -178,7 +178,7 @@ class PostCard_forProfile_widget extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return AcceptedPostMembers_Fetch_Screen(
                     post_fk: postObj.id,
-                    fromProfile: false,
+                    fromProfile: true,
                   );
                 }));
               },

@@ -1,7 +1,7 @@
 part of 'AppliedToJoinPosts_fetch_screen.dart';
 
 class AppliedToJoinPosts_fetch_listTile_widget extends StatelessWidget {
-  final singleObj;
+  final PostMembers singleObj;
   const AppliedToJoinPosts_fetch_listTile_widget(
       {super.key, required this.singleObj});
 
@@ -12,55 +12,94 @@ class AppliedToJoinPosts_fetch_listTile_widget extends StatelessWidget {
 
   listTile(context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 1, 8.0, 1),
-      child: ListTile(
-        tileColor: Colors.teal,
-        leading: tile_leading(),
-        title: tile_title(),
-        subtitle: tile_subtitle(),
-        onTap: () async => await fetchListFunc(singleObj, context),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      child: Neumorphic(
+        style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(12),
+          ),
+          depth: 5,
+          intensity: 0.7,
+          color: Colors.white,
+          shadowLightColor: Colors.grey[400],
+          shadowDarkColor: Colors.grey[700],
+        ),
+        child: ListTile(
+          // leading: Container(
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topLeft,
+          //       end: Alignment.bottomRight,
+          //       colors: [
+          //         Colors.pink,
+          //         Colors.purple,
+          //       ],
+          //     ),
+          //     shape: BoxShape.circle,
+          //   ),
+          //   child: CircleAvatar(
+          //     // radius: size / 2.0,
+          //     backgroundColor: Colors.transparent,
+          //     child: Text(
+          //       singleObj.member_fk.toString(),
+          //       style: TextStyle(
+          //           // fontSize: size / 4.0,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //   ),
+          // ),
+          title: Text(
+            singleObj.post_title!,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 5.0),
+              // Text(
+              //   singlObj.m,
+              //   style: TextStyle(fontSize: 16.0, color: Colors.grey[700]),
+              // ),
+              // SizedBox(height: 10.0),
+              Text(
+                'Post: ${singleObj.post_description}',
+                maxLines: 2,
+                style: TextStyle(fontSize: 14.0, color: Colors.grey[700]),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                children: [
+                  Text(
+                    singleObj.joinedTime.substring(0, 10),
+                    style: TextStyle(fontSize: 14.0, color: Colors.grey[700]),
+                  ),
+                  // Spacer(),
+                  SizedBox(width: 5.0),
+
+                  singleObj.isAccepted ?? false
+                      ? Icon(Icons.check_circle,
+                          color: Colors.green, size: 18.0)
+                      : Icon(Icons.radio_button_unchecked,
+                          color: Colors.grey, size: 18.0),
+                  SizedBox(width: 5.0),
+                  Text(
+                    singleObj.isAccepted ?? false ? 'Accepted' : 'Pending',
+                    style: TextStyle(fontSize: 14.0, color: Colors.grey[700]),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5.0),
+            ],
+          ),
+          onTap: () {},
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        ),
       ),
-    );
-  }
-
-  tile_leading() {
-    return CircleAvatar(
-      backgroundColor: Colors.white,
-      child: Text(singleObj.id.toString()),
-    );
-  }
-
-  tile_title() {
-    return Text(
-      '${singleObj.post_fk}.  ${singleObj.post_title}',
-      maxLines: 1,
-    );
-  }
-
-  tile_subtitle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '${singleObj.post_description}',
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-        SizedBox(height: 10),
-        Text(
-          'post by : ${singleObj.member_fk}.${singleObj.member_username}',
-          maxLines: 1,
-        ),
-        Text(
-          singleObj.isAccepted
-              ? 'You are team member'
-              : 'You are a team member yet',
-          maxLines: 1,
-        ),
-        SizedBox(
-          height: 40,
-        )
-      ],
     );
   }
 

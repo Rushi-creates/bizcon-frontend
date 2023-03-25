@@ -1,5 +1,6 @@
 import 'package:bizcon1/MODULES/CREATE_POST/CreatePost_screen.dart';
 import 'package:bizcon1/MODULES/HOME/HomeScreen.dart';
+import 'package:bizcon1/MODULES/PROFILE/__MyJoinedPosts_fetch_stub__/MyJoinedPosts_fetch_screen/MyJoinedPosts_fetch_screen.dart';
 import 'package:bizcon1/MODULES/PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_screen/MyPosts_fetch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,55 +62,102 @@ class _My_BottomBarState extends State<My_BottomBar> {
                 Colors.white,
                 Colors.white,
               ], end: Alignment.topCenter, begin: Alignment.bottomCenter)),
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: homeIconStates(),
-                      onPressed: () {
-                        BlocProvider.of<MyBottomBarBloc>(context)
-                            .add(MyBottomBar_OneCLicked_Event());
-                      },
+          child: BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
+              builder: (context, state) {
+            return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(
+                          (state is MyBottomBar_openTwo_State)
+                              ? Icons.home
+                              : Icons.home,
+                          color: (state is MyBottomBar_openOne_State)
+                              ? Colors.blue[900]
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<MyBottomBarBloc>(context)
+                              .add(MyBottomBar_OneCLicked_Event());
+                        },
+                      ),
                     ),
                   ),
-                ),
-                VerticalDivider(
-                  width: 40,
-                  color: Colors.white,
-                ),
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: createPost_States(),
-                      onPressed: () {
-                        BlocProvider.of<MyBottomBarBloc>(context)
-                            .add(MyBottomBar_TwoCLicked_Event());
-                      },
+                  VerticalDivider(
+                    width: 40,
+                    color: Colors.white,
+                  ),
+                  FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(
+                          (state is MyBottomBar_openTwo_State)
+                              ? Icons.edit
+                              : Icons.edit,
+                          color: (state is MyBottomBar_openTwo_State)
+                              ? Colors.blue[900]
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<MyBottomBarBloc>(context)
+                              .add(MyBottomBar_TwoCLicked_Event());
+                        },
+                      ),
                     ),
                   ),
-                ),
-                VerticalDivider(
-                  color: Colors.white,
-                  width: 40,
-                ),
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: profileIconStates(),
-                      onPressed: () {
-                        BlocProvider.of<MyBottomBarBloc>(context)
-                            .add(MyBottomBar_ThreeCLicked_Event());
-                      },
+                  VerticalDivider(
+                    color: Colors.white,
+                    width: 40,
+                  ),
+                  FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(
+                          (state is MyBottomBar_openThree_State)
+                              ? Icons.chat
+                              : Icons.chat_bubble_outline,
+                          color: (state is MyBottomBar_openThree_State)
+                              ? Colors.blue[900]
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<MyBottomBarBloc>(context)
+                              .add(MyBottomBar_ThreeCLicked_Event());
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ]),
+                  VerticalDivider(
+                    color: Colors.white,
+                    width: 40,
+                  ),
+                  FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(
+                          (state is MyBottomBar_openFour_State)
+                              ? Icons.person
+                              : Icons.person_2_outlined,
+                          color: (state is MyBottomBar_openFour_State)
+                              ? Colors.blue[900]
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<MyBottomBarBloc>(context)
+                              .add(MyBottomBar_FourCLicked_Event());
+                        },
+                      ),
+                    ),
+                  ),
+                ]);
+          }),
         ));
   }
 
@@ -188,83 +236,83 @@ class _My_BottomBarState extends State<My_BottomBar> {
 //     );
 //   }
 
-  homeIconStates() {
-    return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
-        builder: (context, state) {
-      if (state is MyBottomBar_openOne_State) {
-        return Icon(
-          Icons.home,
-          color: Colors.blue[900],
-        );
-      } else if (state is MyBottomBar_openTwo_State) {
-        return Icon(
-          Icons.home_outlined,
-          color: Colors.grey,
-        );
-      } else if (state is MyBottomBar_openThree_State) {
-        return Icon(
-          Icons.home_outlined,
-          color: Colors.grey,
-        );
-      }
-      return Icon(
-        Icons.home,
-        color: Colors.blue[900],
-      );
-    });
-  }
+  // homeIconStates() {
+  //   return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
+  //       builder: (context, state) {
+  //     if (state is MyBottomBar_openOne_State) {
+  //       return Icon(
+  //         Icons.home,
+  //         color: Colors.blue[900],
+  //       );
+  //     } else if (state is MyBottomBar_openTwo_State) {
+  //       return Icon(
+  //         Icons.home_outlined,
+  //         color: Colors.grey,
+  //       );
+  //     } else if (state is MyBottomBar_openThree_State) {
+  //       return Icon(
+  //         Icons.home_outlined,
+  //         color: Colors.grey,
+  //       );
+  //     }
+  //     return Icon(
+  //       Icons.home,
+  //       color: Colors.blue[900],
+  //     );
+  //   });
+  // }
 
-  createPost_States() {
-    return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
-        builder: (context, state) {
-      if (state is MyBottomBar_openOne_State) {
-        return Icon(
-          Icons.edit_outlined,
-          color: Colors.grey,
-        );
-      } else if (state is MyBottomBar_openTwo_State) {
-        return Icon(
-          Icons.edit,
-          color: Colors.blue[900],
-        );
-      } else if (state is MyBottomBar_openThree_State) {
-        return Icon(
-          Icons.edit_outlined,
-          color: Colors.grey,
-        );
-      }
-      return Icon(
-        Icons.edit_outlined,
-        color: Colors.grey,
-      );
-    });
-  }
+  // createPost_States() {
+  //   return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
+  //       builder: (context, state) {
+  //     if (state is MyBottomBar_openOne_State) {
+  //       return Icon(
+  //         Icons.edit_outlined,
+  //         color: Colors.grey,
+  //       );
+  //     } else if (state is MyBottomBar_openTwo_State) {
+  //       return Icon(
+  //         Icons.edit,
+  //         color: Colors.blue[900],
+  //       );
+  //     } else if (state is MyBottomBar_openThree_State) {
+  //       return Icon(
+  //         Icons.edit_outlined,
+  //         color: Colors.grey,
+  //       );
+  //     }
+  //     return Icon(
+  //       Icons.edit_outlined,
+  //       color: Colors.grey,
+  //     );
+  //   });
+  // }
 
-  profileIconStates() {
-    return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
-        builder: (context, state) {
-      if (state is MyBottomBar_openOne_State) {
-        return Icon(
-          Icons.person_outline,
-          color: Colors.grey,
-        );
-      } else if (state is MyBottomBar_openTwo_State) {
-        return Icon(
-          Icons.person_outline,
-          color: Colors.grey,
-        );
-      } else if (state is MyBottomBar_openThree_State) {
-        return Icon(
-          Icons.person,
-          color: Colors.blue[900],
-        );
-      }
-      return Icon(
-        Icons.person_outline,
-        color: Colors.grey,
-      );
-    });
-  }
+  // profileIconStates() {
+  //   return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
+  //       builder: (context, state) {
+  //     if (state is MyBottomBar_openOne_State) {
+  //       return Icon(
+  //         Icons.person_outline,
+  //         color: Colors.grey,
+  //       );
+  //     } else if (state is MyBottomBar_openTwo_State) {
+  //       return Icon(
+  //         Icons.person_outline,
+  //         color: Colors.grey,
+  //       );
+  //     } else if (state is MyBottomBar_openThree_State) {
+  //       return Icon(
+  //         Icons.person,
+  //         color: Colors.blue[900],
+  //       );
+  //     }
+  //     return Icon(
+  //       Icons.person_outline,
+  //       color: Colors.grey,
+  //     );
+  //   });
+  // }
 
   whichTabStates() {
     return BlocBuilder<MyBottomBarBloc, MyBottomBarState>(
@@ -275,6 +323,10 @@ class _My_BottomBarState extends State<My_BottomBar> {
       } else if (state is MyBottomBar_openTwo_State) {
         return CreatePostScreen(); //second tab screen
       } else if (state is MyBottomBar_openThree_State) {
+        return MyJoinedPosts_Fetch_Screen(
+            isFromProfile: false,
+            member_fk: Profile_sp_repo.get_profile()!.p_uid);
+      } else if (state is MyBottomBar_openFour_State) {
         return ProfileScreen(
             profilePuid: Profile_sp_repo.get_profile()!.p_uid,
             profileObj: Profile_sp_repo.get_profile()!); //second tab screen
