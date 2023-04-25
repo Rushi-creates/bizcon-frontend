@@ -36,7 +36,7 @@ class MyComponents {
           // overflow: TextOverflow.ellipsis,
           // textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.grey,
+            color: Color.fromARGB(255, 196, 196, 196),
             // decoration: TextDecoration.none,
             // fontStyle: FontStyle.italic,
             // fontFamily: "FontNameHere" ,
@@ -52,7 +52,11 @@ class MyComponents {
   static nothingMoreToLoad() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text('Nothing more to load'),
+      child: Text(
+        'Nothing more to load',
+        style:
+            TextStyle(color: Color.fromARGB(255, 207, 207, 207), fontSize: 10),
+      ),
     );
   }
 

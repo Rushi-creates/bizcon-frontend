@@ -166,7 +166,7 @@ class _AllPosts_Fetch_ScreenState extends State<AllPosts_Fetch_Screen> {
                           ),
 
                           //
-                          SizedBox(height: 500),
+                          SizedBox(height: 520),
                         ]),
                   ),
                 ),

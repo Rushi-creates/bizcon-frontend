@@ -50,7 +50,11 @@ class MyPosts_fetch_belowList_widget extends StatelessWidget {
   nothingMoreToLoad() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text('Nothing more\nto load'),
+      child: Text(
+        'Nothing \nmore to load',
+        style:
+            TextStyle(color: Color.fromARGB(255, 207, 207, 207), fontSize: 10),
+      ),
     );
   }
 
