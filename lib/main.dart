@@ -25,12 +25,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'MODULES/HOME/AllPosts_fetch_logic/AllPosts_fetch_bloc.dart';
 import 'MODULES/HOME/PostMembers_cud_logic/PostMembers_cud_bloc.dart';
-import 'old/PostCard_widget copy.dart';
-import 'old/TrialPostCard.dart';
 import 'MODULES/POST/__AcceptedPostMembers_fetch_stub__/AcceptedPostMembers_fetch_logic/AcceptedPostMembers_fetch_bloc.dart';
 import 'MODULES/POST/__WaitingPostMembers_fetch_stub__/WaitingPostMembers_fetch_logic/WaitingPostMembers_fetch_bloc.dart';
 import 'MODULES/PROFILE/__MyPosts_fetch_stub__/MyPosts_fetch_logic/MyPosts_fetch_bloc.dart';
-import 'MODULES/PostCard.dart';
 import 'MODULES/Splash_stub/SplashScreen.dart';
 import 'MODULES/Splash_stub/Splash_roles_logic/splash_roles_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
