@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../../../service_layer_stub/models/Post.dart';
 import '../../../../service_layer_stub/models/PostMembers.dart';

@@ -145,11 +145,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter app',
+          title: 'Bizcon',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          //theme: ThemeData(
+          //    primarySwatch: Colors.blue,
+          //s  ),
           // onGenerateRoute: _appRouter.onGenerateRoute, //dont pass brackets here
 
           home: SplashScreen(

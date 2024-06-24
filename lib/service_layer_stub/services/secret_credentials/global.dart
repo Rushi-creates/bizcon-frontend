@@ -3,8 +3,8 @@ import 'dart:convert';
 /* -------------------------------------------------------------------------- */
 /*                   //! Basic authentication credentials :                   */
 /* -------------------------------------------------------------------------- */
-String basicAuth_username = 'rushi.creates';
-String basicAuth_password = 'bizcon@123***';
+String basicAuth_username = 'rushi';
+String basicAuth_password = 'test@123***';
 String basicAuth = 'Basic ' +
     base64Encode(utf8.encode('$basicAuth_username:$basicAuth_password'));
 
@@ -12,8 +12,8 @@ class ApiLinks {
 /* -------------------------------------------------------------------------- */
 /*                                 //! Domain                                 */
 /* -------------------------------------------------------------------------- */
-  static const String domainUrl =
-      'https://bizcon-production-553a.up.railway.app/';
+  static const String domainUrl = "https://bizcon-mca-sem2.onrender.com/";
+  // 'https://bizcon-production-553a.up.railway.app/';
   //  'https://bizcon-production.up.railway.app/';
   // 'https://bizon-pythonanywhere-1-production.up.railway.app/';
 

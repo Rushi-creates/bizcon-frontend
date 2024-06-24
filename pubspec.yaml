@@ -36,7 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
-  flutter_neumorphic: ^3.2.0
+  # flutter_neumorphic: ^3.2.0
   http: ^0.13.5
   rename: ^2.1.1
   shared_preferences: ^2.0.17
