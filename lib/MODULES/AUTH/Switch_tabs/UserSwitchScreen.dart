@@ -29,7 +29,7 @@ class _UserSwitchScreenState extends State<UserSwitchScreen> {
 /* -------------------------------------------------------------------------- */
 
   interactionCard() {
-    var dimVar = MediaQuery.of(context).size;
+    // var dimVar = MediaQuery.of(context).size;
 
     return Column(
       // direction: Axis.vertical,

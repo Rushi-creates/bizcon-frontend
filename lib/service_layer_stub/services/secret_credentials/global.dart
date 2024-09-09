@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:bizcon1/config.dart';
+
 /* -------------------------------------------------------------------------- */
 /*                   //! Basic authentication credentials :                   */
 /* -------------------------------------------------------------------------- */
-String basicAuth_username = 'rushi';
-String basicAuth_password = 'test@123***';
+String basicAuth_username = Config.BASIC_AUTH_USERNAME;
+String basicAuth_password = Config.BASIC_AUTH_PASSWORD;
 String basicAuth = 'Basic ' +
     base64Encode(utf8.encode('$basicAuth_username:$basicAuth_password'));
 
@@ -12,7 +14,11 @@ class ApiLinks {
 /* -------------------------------------------------------------------------- */
 /*                                 //! Domain                                 */
 /* -------------------------------------------------------------------------- */
-  static const String domainUrl = "https://bizcon-mca-sem2.onrender.com/";
+  static const String domainUrl = Config.DRF_API_URL;
+
+/* -------------------------------------------------------------------------- */
+/*                                 //! Domain                                 */
+/* -------------------------------------------------------------------------- */
   // 'https://bizcon-production-553a.up.railway.app/';
   //  'https://bizcon-production.up.railway.app/';
   // 'https://bizon-pythonanywhere-1-production.up.railway.app/';
